@@ -32,8 +32,11 @@ data = open(filename).read().split('\n')
 for line in data:
     line= line.replace('   ', ';;;')
     outfile.write(line + '\n')
+outfile.close()
+
 #throw away any lines that do not start with ';;;'
-for line in data: 
+data2 = open(outfile).read()
+for line in data2: 
     if line.find(';;;') !=0:
         outfile2.write(line + '\n')
               
