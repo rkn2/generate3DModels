@@ -4,6 +4,12 @@
 
 import os
 
+def file_len(fname):
+    i = 0
+    with open(fname) as f:
+        for l in enumerate(f,1):
+            pass
+    #return i + 1
 
 directory = 'C:/Users/Rebecca Napolitano/Google Drive/Documents/Research/mikehess/palazzo vecchio/2017_9_7_ElementiModels/FoundationModels/ExistingGeometry/'
 filename ='testy.txt'
@@ -25,7 +31,7 @@ with open(filename) as f:
         finded = line.find('block')
         if finded != -1 and finded != 0:
             total += 1
-print(total)
+#print(total)
 f.close()
 
 #read in the gvol file
@@ -46,7 +52,16 @@ for line in data:
     if ';;;' in line:
         line = line.replace(';;;','').replace('&','')
         outfile2.write(line + '\n')
-        
+
+#iterate through the list of lines, and put the blocks faces and blocks back together
+ #each face has 3 sets of points and each block has 4 faces, so each block has 12 lines of code    
+fileLength = file_len(outFile2) #works!
+numberBlocks = fileLength / 12
+if numberBlocks != total:
+    print("Error with the number of blocks!")
+else:
+    print("All good")
+
         
 
 #find unique vertex locations
