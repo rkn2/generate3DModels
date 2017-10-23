@@ -100,29 +100,35 @@ while j <= numberBlocks:
             entry = float(entry)
             newLine.append(entry)
         dataFixed4.append(newLine)
-       
-    
-    
-    
     
     #calculate volume of triangle base pyramid
     #>4 odd it is a pyramid; >4 even it is a prism; #do these using rhino functions
     #find ab
-    
+    abx = dataFixed4[1][0]-dataFixed4[0][0]
+    aby = dataFixed4[1][1]-dataFixed4[0][1]
+    abz = dataFixed4[1][2]-dataFixed4[0][2]
     #find ac
+    acx = dataFixed4[2][0]-dataFixed4[0][0]
+    acy = dataFixed4[2][1]-dataFixed4[0][1]
+    acz = dataFixed4[2][2]-dataFixed4[0][2]
     #find ad
-    #find absolute value of triple product
-    #find volume
-
-    
-    
-    
+    adx = dataFixed4[3][0]-dataFixed4[0][0]
+    ady = dataFixed4[3][1]-dataFixed4[0][1]
+    adz = dataFixed4[3][2]-dataFixed4[0][2]
+    #make a matrix
+    matrixBlock = [[abx, aby, abz], [acx, acy, acz], [adx, ady, adz]]  
+    #find triple product or determinate
+    det = np.linalg.det(matrixBlock)
+    #take absolute value
+    det = abs(det)
+    #find volume (abs(det)/6)
+    volume = det/6
+    print("Volume of block " + str(i) + " is:")
+    print(volume)
 
     start = start + 12 #increments for each block
     j = j + 1
-#    
-#        
-#        
+     
     
     
 
