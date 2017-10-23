@@ -12,7 +12,8 @@ def file_len(fname):
     return i + 1
 
 directory = 'C:/Users/Rebecca Napolitano/Google Drive/Documents/Research/mikehess/palazzo vecchio/2017_9_7_ElementiModels/FoundationModels/ExistingGeometry/'
-filename ='testy.txt'
+#filename ='testy.txt'
+filename = "GVol.3ddat"
 outFile = 'blockstesty.txt'
 outFile2 = 'thisisatest.txt'
 os.chdir(directory)
@@ -57,18 +58,19 @@ for line in data:
 i = 0 #for line counting function   
 fileLength = file_len(outFile2) #works!
 numberBlocks = int(fileLength / 12)
-if numberBlocks != total:
-    print("Error with the number of blocks!")
+#if numberBlocks != total:
+#    print("Error with the number of blocks!")
 
 #iterate through the list of lines, and put the blocks faces and blocks back together
 #each face has 3 sets of points and each block has 4 faces, so each block has 12 lines of code 
-
+start = 0 
 j = 1
 data = open(outFile2).read().split('\n')
 while j <= numberBlocks:
     #grab twelve lines for that block
-    start = 0 
+    
     end = start + 12
+    #print("for block " + str(j) + "start is  "+ str(start) + "end is " + str(end))
     blockLine = data[start : end]
     
     #remove spaces at the end of some lines
@@ -123,8 +125,16 @@ while j <= numberBlocks:
     det = abs(det)
     #find volume (abs(det)/6)
     volume = det/6
-    print("Volume of block " + str(i) + " is:")
-    print(volume)
+    if volume < 1e-5: 
+        print("Volume of block " + str(j) + " is:")
+        
+        print(volume)
+        xcent
+        ycent
+        zcent
+        centroid = []
+        centroid = [xcent, ycent, zcent]
+        print("Centroid of problem block is " + centroid)
 
     start = start + 12 #increments for each block
     j = j + 1
