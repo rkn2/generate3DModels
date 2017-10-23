@@ -59,8 +59,6 @@ fileLength = file_len(outFile2) #works!
 numberBlocks = int(fileLength / 12)
 if numberBlocks != total:
     print("Error with the number of blocks!")
-else:
-    print("All good")
 
 #iterate through the list of lines, and put the blocks faces and blocks back together
 #each face has 3 sets of points and each block has 4 faces, so each block has 12 lines of code 
@@ -79,10 +77,45 @@ while j <= numberBlocks:
         if line[-1] == ' ':
             line = line[0:-1]
         dataFixed.append(line)
-    #get unique lines
     uniqueLines = set(dataFixed)
-    print("This is block " + str(j))
-    print(uniqueLines)
+    #print("This is block " + str(j))
+    #print(uniqueLines)
+    if len(uniqueLines) != 4:
+        print("Error in number of vertices!!")
+    dataFixed2 = []
+    #make array not list of strings
+    for line in uniqueLines:
+        line = line
+        dataFixed2.append(line)
+    #break it into each point
+    dataFixed3 = []
+    for line in dataFixed2:
+        line = line.split(" ")
+        dataFixed3.append(line) 
+    #convert all strings to floats
+    dataFixed4 = []
+    for line in dataFixed3:
+        newLine = []
+        for entry in line:
+            entry = float(entry)
+            newLine.append(entry)
+        dataFixed4.append(newLine)
+       
+    
+    
+    
+    
+    #calculate volume of triangle base pyramid
+    #>4 odd it is a pyramid; >4 even it is a prism; #do these using rhino functions
+    #find ab
+    
+    #find ac
+    #find ad
+    #find absolute value of triple product
+    #find volume
+
+    
+    
     
 
     start = start + 12 #increments for each block
@@ -97,13 +130,7 @@ while j <= numberBlocks:
         
             
 
-#find unique vertex locations
-#find volume of that block
-#find vector from a to b
-#find vector from a to c
-#find vector from a to d
-#find triple product 
-#find 1/6 absolute value of the triple product
+
 
 outfile2.close()
 
