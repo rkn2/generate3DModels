@@ -125,16 +125,33 @@ while j <= numberBlocks:
     det = abs(det)
     #find volume (abs(det)/6)
     volume = det/6
+
+    #find centroid by looping over all vertices and points for each block
+    vertex = 0
+    while vertex <= 3:
+        xCent = 0
+        xPoint = 0
+        while xPoint <= 2:
+            xCent = xCent + dataFixed4[vertex][xPoint]
+            xPoint = xPoint + 1
+        xCent = xCent / 4
+        yCent = 0
+        yPoint = 0
+        while yPoint <=2:
+            yCent = yCent + dataFixed4[vertex][yPoint]
+            yPoint = yPoint + 1
+        yCent = yCent / 4
+        zCent = 0
+        zPoint = 0
+        while zPoint <= 2:
+            zCent = zCent + dataFixed4[vertex][zPoint]
+            zPoint = zPoint + 1
+        zCent = zCent / 4
+        vertex = vertex + 1
+        centroid = [xCent, yCent, zCent]
+            
     if volume < 1e-5: 
-        print("Volume of block " + str(j) + " is:")
-        
-        print(volume)
-        xcent
-        ycent
-        zcent
-        centroid = []
-        centroid = [xcent, ycent, zcent]
-        print("Centroid of problem block is " + centroid)
+        print("Volume of block " + str(j) + " is: " + str(volume) + " and the centroid is " + str(centroid))
 
     start = start + 12 #increments for each block
     j = j + 1
