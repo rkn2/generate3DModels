@@ -3,10 +3,11 @@
 #calculate volumne 
 
 import os
+import numpy as np
 
 def file_len(fname):
     with open(fname) as f:
-        for i, l in enumerate(f):
+        for i,l in enumerate(f):
             pass
     return i + 1
 
@@ -52,16 +53,49 @@ for line in data:
         line = line.replace(';;;','').replace('&','')
         outfile2.write(line + '\n')
 
-#iterate through the list of lines, and put the blocks faces and blocks back together
- #each face has 3 sets of points and each block has 4 faces, so each block has 12 lines of code    
+#check for number of blocks
+i = 0 #for line counting function   
 fileLength = file_len(outFile2) #works!
-#numberBlocks = fileLength / 12
-#if numberBlocks != total:
-#    print("Error with the number of blocks!")
-#else:
-#    print("All good")
+numberBlocks = int(fileLength / 12)
+if numberBlocks != total:
+    print("Error with the number of blocks!")
+else:
+    print("All good")
+
+#iterate through the list of lines, and put the blocks faces and blocks back together
+#each face has 3 sets of points and each block has 4 faces, so each block has 12 lines of code 
+
+j = 1
+data = open(outFile2).read().split('\n')
+while j <= numberBlocks:
+    #grab twelve lines for that block
+    start = 0 
+    end = start + 12
+    blockLine = data[start : end]
+    
+    #remove spaces at the end of some lines
+    dataFixed = []
+    for line in blockLine:
+        if line[-1] == ' ':
+            line = line[0:-1]
+        dataFixed.append(line)
+    #get unique lines
+    uniqueLines = set(dataFixed)
+    print("This is block " + str(j))
+    print(uniqueLines)
+    
+
+    start = start + 12 #increments for each block
+    j = j + 1
+#    
+#        
+#        
+    
+    
+
 
         
+            
 
 #find unique vertex locations
 #find volume of that block
