@@ -1,0 +1,18 @@
+﻿Option Explicit
+'Script written by <insert name>
+'Script copyrighted by <insert company name>
+'Script version Tuesday, October 24, 2017 10:46:07 AM
+
+Call Main()
+Sub Main()
+	
+	Dim strObject
+	Dim ObjectName, ObjectID
+	strObject = Rhino.GetObject("Pick object")
+	objectName = Rhino.ObjectName(strObject)
+	objectID = strObject
+	
+	Msgbox "ObjectName: " & ObjectName
+	Msgbox "ObjectID: " & ObjectID
+
+End Sub

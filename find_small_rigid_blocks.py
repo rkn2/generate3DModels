@@ -1,20 +1,25 @@
 import rhinoscriptsyntax as rs
 
-tolerance = 155e-07 #m3
 
-geometry = rs.Command("-_SelAll ")
-typeGeometry = type(geometry)
-print typeGeometry
+tolerance = 170 #m3
 
-rs.Command("-_SelNone ")
 
-for block in geometry:
-    #grab it 
-    blockSelected = rs.Command("-_Select " + block)
-    #find volume
-    blockVolume = rs.Command("-_Volume ")
-    #delete if too small
-    if blockVolume < tolerance:
-        rs.Command("-_Delete")
-        print "Block deleted"
-    
+#pick an object
+object_id = rs.GetObjects()
+
+#Loop between my objects
+for object_i in object_id:
+    #deselect any objects
+    rs.Command("-_selnone")
+    #get block id
+    #print object_i
+    object_i = str(object_i)
+    block = rs.Command("-_SelID " + object_i)
+    #get volume
+    volume = rs.Command("-_Volume ")
+    print volume
+#    #delete if too small
+#    if volume < tolerance:
+#        rs.Command("-_Delete")
+#        print "Deleting block"
+#    
