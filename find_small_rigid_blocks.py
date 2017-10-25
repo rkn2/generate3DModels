@@ -1,7 +1,6 @@
 import rhinoscriptsyntax as rs
 
-tolerance = 170
-
+tolerance = 1e-4
 object_id = rs.GetObjects()
 
 for object_i in object_id:
