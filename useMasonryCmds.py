@@ -1,5 +1,13 @@
+#IMPORTANT NOTICE!
+#IF YOU EDIT THIS FILE FOR A RHINO COMMAND, MAKE SURE TO EDIT THE FILE IN THE APP DATA FOR RHINO
+#sometimes you might have to close rhino, open script editor (editScript) close that and then try to use the command
+#IF YOU EDIT THIS FILE FOR NOT A RHINO COMMAND, THEN YOU DO NOT HAVE TO UPDATE THE DEV FOLDER
+
+
 import rhinoscriptsyntax as rs
 import os
+import shutil
+import sys
 
 # Saves a file with name filename and extension filetype in directory (directory
 # must be a full path, with double backslashes). Returns False in case of 
@@ -22,6 +30,7 @@ def saveAs(directory, filename, filetype):
 # multiple layers, or just "filename" if there is only one layer, saved in 
 # directory with extension filetype. Returns True if all layers are exported 
 # successfully and False otherwise.
+
 def exportLayers(directory, filename, filetype):
     
     success = True
@@ -54,6 +63,7 @@ def exportLayers(directory, filename, filetype):
         rs.Command("-_SelNone")
         
     return success
+
 
 # Creates a new file with units dictated by string units. Deletes all but one
 # layer. Returns False in case of failure, and True otherwise. Options: "Micron"
@@ -322,8 +332,5 @@ def meshing(meshValue, directory):
             rs.Command("-_Gsurf " + gsurfOptions + '_Enter _Enter')
             rs.Command("-_SelMesh")
             rs.Command("-_Gvol " + gvolOptions + '_Enter _Enter')    
-    #save filename
-          
-    shutil.move('Gvol.3ddat', filename + '_deformable.3ddat')
           
     return True

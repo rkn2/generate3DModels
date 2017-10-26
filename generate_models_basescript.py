@@ -1,5 +1,6 @@
 #makes walls with roman bonding courses
 import sys
+import rhinostriptsyntax as rs
 #file_path = location of usemasonrycommands.py
 file_path = 'C:\\Users\\Rebecca Napolitano\\Documents\\GitHub\\generate3DModels\\'    
 sys.path.append(file_path)
@@ -61,10 +62,18 @@ while i <= len(iList) - 1 :
             #buildBondingCourseWall(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, brickHeight="Enter", brickWidth="", firstCourse="", brickRow="", bondingCourses="", settleWidth="Enter", settleDepth=""):          
             umc.buildBondingCourseWallv2(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, brickHeight, brickWidth, firstCourse, brickRow, iEntry, jEntry, kEntry, sideBaseWidth)
             filename = "bc_r" + str(iEntry) + "-w" + str(jEntry) + "-s" + str(kEntry)  
+            
+            #mesh for export
+            rs.Command("-_Mesh ")
+            
+            
+            
+            
             success = umc.exportLayers(directory, filename, ".wrl")
             if not (success):
                 break  
             
+
             #mesh 
             umc.meshing(meshValue, directory)
                      
