@@ -277,10 +277,10 @@ def buildBondingCourseWallv2(wallWidth, wallHeight, wallDepth, stoneHeight, ston
     
     return True
 
-def meshing(meshValue, gvol_files):
+def meshing(meshValue, directory):
     #meshValue = '0.5 '
             
-    os.chdir(gvol_files)
+    os.chdir(directory)
                 
     #meshcommands
     angle = ' _angle=0'
@@ -322,5 +322,8 @@ def meshing(meshValue, gvol_files):
             rs.Command("-_Gsurf " + gsurfOptions + '_Enter _Enter')
             rs.Command("-_SelMesh")
             rs.Command("-_Gvol " + gvolOptions + '_Enter _Enter')    
+    #save filename
+          
+    shutil.move('Gvol.3ddat', filename + '_deformable.3ddat')
           
     return True
