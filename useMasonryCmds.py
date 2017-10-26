@@ -329,10 +329,10 @@ def meshing(meshValue, directory):
     gsurfOptions = mode + minedgelength + maxedgelength + ridgeangle + maxgradation + deleteinput
     
     #gvol options
-    mode = '_mode=test '
+    gvol_mode = '_mode=tet '
     outputformat = '_outputformat=3DEC '
     
-    gvolOptions = mode + outputformat
+    gvolOptions = gvol_mode + outputformat
     
     rs.Command("-_SelNone ")
     layers = rs.LayerNames()
@@ -340,9 +340,13 @@ def meshing(meshValue, directory):
         if layer == 'concrete':
                            
             rs.Command("-_SelLayer " + layer)
-            rs.Command("_Enter")
+            #rs.Command("_Enter")
+            rs.Command("Invert ")
+            rs.Command("Hide Enter")
+            rs.Command("-_SelLayer " + layer)
             rs.Command("-_Mesh _DetailedOptions _AdvancedOptions " + advOptions + '_Enter _Enter')
-            rs.Command("-_SelMesh")
+            rs.Command("-_SelNone ")
+            rs.Command("-_SelMesh ")
             rs.Command("-_Gsurf " + gsurfOptions + '_Enter _Enter')
             rs.Command("-_SelMesh")
             rs.Command("-_Gvol " + gvolOptions + '_Enter _Enter')    
