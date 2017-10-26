@@ -43,24 +43,37 @@ def exportLayers(directory, filename, filetype):
     layers = rs.LayerNames() 
     for layer in layers:
         
-        # select layer
-        rs.Command("-_SelLayer " + layer)
+        if layer != 'concrete':
         
-        # make cmdstr, include layer if there are multiple layers
-        if len(layers) > 1:
-            path = "\"" + directory + filename + "_" + layer + filetype + "\""
-        else:
-            path = "\"" + directory + filename + filetype + "\""
-        cmdstr = "-_Export " + path
-        if filetype == ".wrl":
-            cmdstr += " Enter Enter"
-        
-        # execute command
-        cmd = rs.Command(cmdstr)
-        if not(cmd):
-            success = False
+            # select layer
+            rs.Command("-_SelLayer " + layer)
             
-        rs.Command("-_SelNone")
+            #mesh so that you can have only simple planes        
+            rs.Command("-_Mesh DetailedOptions SimplePlane=Yes Enter")
+            
+            # make cmdstr, include layer if there are multiple layers
+            if len(layers) > 1:
+                path = "\"" + directory + filename + "_" + layer + filetype + "\""
+            else:
+                path = "\"" + directory + filename + filetype + "\""
+                
+            rs.Command("-_SelNone ")
+            rs.Command("-_SelLayer " + layer)
+            rs.Command("-_Invert ")
+            rs.Command("Hide Enter")
+            rs.Command("-_SelMesh ")
+    
+            cmdstr = "-_Export " + path
+            if filetype == ".wrl":
+                cmdstr += " Enter Enter"
+            
+            # execute command
+            cmd = rs.Command(cmdstr)
+            if not(cmd):
+                success = False
+                
+            rs.Command("-_SelNone")
+            rs.Command("Show ")
         
     return success
 
@@ -321,6 +334,7 @@ def meshing(meshValue, directory):
     
     gvolOptions = mode + outputformat
     
+    rs.Command("-_SelNone ")
     layers = rs.LayerNames()
     for layer in layers:
         if layer == 'concrete':

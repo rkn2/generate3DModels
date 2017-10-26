@@ -61,13 +61,7 @@ while i <= len(iList) - 1 :
             
             #buildBondingCourseWall(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, brickHeight="Enter", brickWidth="", firstCourse="", brickRow="", bondingCourses="", settleWidth="Enter", settleDepth=""):          
             umc.buildBondingCourseWallv2(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, brickHeight, brickWidth, firstCourse, brickRow, iEntry, jEntry, kEntry, sideBaseWidth)
-            filename = "bc_r" + str(iEntry) + "-w" + str(jEntry) + "-s" + str(kEntry)  
-            
-            #mesh for export
-            rs.Command("-_Mesh ")
-            
-            
-            
+            filename = "bc_r" + str(iEntry) + "-w" + str(jEntry) + "-s" + str(kEntry)             
             
             success = umc.exportLayers(directory, filename, ".wrl")
             if not (success):
@@ -118,8 +112,9 @@ while j <= len(jList) - 1 :
         success = umc.saveAs(directory, filename, ".3dm")
         if not (success):
             break
-
-        #umc.meshing(meshValue)
+        
+        
+        
         #open a new file
         if k < len(kList) + 1:
             success = umc.new()
