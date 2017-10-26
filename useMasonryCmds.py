@@ -1,7 +1,6 @@
 #IMPORTANT NOTICE!
-#IF YOU EDIT THIS FILE FOR A RHINO COMMAND, MAKE SURE TO EDIT THE FILE IN THE APP DATA FOR RHINO
+#IF YOU EDIT THIS FILE MAKE SURE TO EDIT THE FILE IN THE APP DATA FOR RHINO
 #sometimes you might have to close rhino, open script editor (editScript) close that and then try to use the command
-#IF YOU EDIT THIS FILE FOR NOT A RHINO COMMAND, THEN YOU DO NOT HAVE TO UPDATE THE DEV FOLDER
 
 
 import rhinoscriptsyntax as rs
