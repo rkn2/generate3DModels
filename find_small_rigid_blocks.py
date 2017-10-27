@@ -1,7 +1,9 @@
 import rhinoscriptsyntax as rs
 
 #def zero_vol_rigid_blocks():
-tolerance = 200 #1e-4
+tolerance = 1e-4
+rs.Command("-_show Enter")
+rs.Command("-_SelMesh Hide ")
 rs.Command("-_SelAll ")
 object_id = rs.GetObjects(message="Bla", preselect=True)
 count = 0
@@ -18,6 +20,7 @@ for object_i in object_id:
     i = rs.coercebrep(object_i)
 
     blockVolume = i.GetVolume()
+    
     
     #delete where appropriate
     if blockVolume < tolerance:
