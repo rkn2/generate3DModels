@@ -2,6 +2,7 @@ import rhinoscriptsyntax as rs
 
 tolerance = 1e-4
 object_id = rs.GetObjects()
+count = 0
 
 for object_i in object_id:
     #deselect any objects
@@ -20,5 +21,10 @@ for object_i in object_id:
     if blockVolume < tolerance:
         rs.Command("-_Delete")
         print "Deleting block"
+        count += 1
+        
+        
     
     #print type(blockVolume)
+count = str(count) + " zero volume blocks were deleted"
+print count 
