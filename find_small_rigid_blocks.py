@@ -1,7 +1,9 @@
 import rhinoscriptsyntax as rs
 
-tolerance = 1e-4
-object_id = rs.GetObjects()
+#def zero_vol_rigid_blocks():
+tolerance = 200 #1e-4
+rs.Command("-_SelAll ")
+object_id = rs.GetObjects(message="Bla", preselect=True)
 count = 0
 
 for object_i in object_id:
@@ -22,9 +24,7 @@ for object_i in object_id:
         rs.Command("-_Delete")
         print "Deleting block"
         count += 1
-        
-        
-    
-    #print type(blockVolume)
+
+rs.Command("-_SelNone ")        
 count = str(count) + " zero volume blocks were deleted"
 print count 
