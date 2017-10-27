@@ -1,15 +1,16 @@
 #makes walls with roman bonding courses
 import sys
-import rhinostriptsyntax as rs
+#import rhinoscriptsyntax as rs
+import shutil
 #file_path = location of usemasonrycommands.py
 file_path = 'C:\\Users\\Rebecca Napolitano\\Documents\\GitHub\\generate3DModels\\'    
 sys.path.append(file_path)
 import useMasonryCmds as umc #this is where the commands for geometry generation, meshing, exporting, saving, etc are
-
+import find_small_rigid_blocks as zeroVol
 ############################################################################
 #                           SET UP PARAMETERS
 
-directory = "C:\\Users\\Rebecca Napolitano\\Documents\\datafiles\\Romanbondingcourses\\2017_10_26_experiments\\" #Where do you want the files to generate?
+directory = "C:\\Users\\Rebecca Napolitano\\Documents\\datafiles\\Romanbondingcourses\\2017_10_26_experiments\\problem_block\\" #Where do you want the files to generate?
   
 wallWidth = 7   
 wallHeight = 3.3
@@ -46,7 +47,7 @@ k = 0 #settlement depth
 #jList = [0.5, 2, 3, 4]
 #kList = [0, 0.05, 0.1, 0.2]
 
-iList = [1]
+iList = [2]
 jList = [2]
 kList = [0.2]
 
@@ -61,20 +62,31 @@ while i <= len(iList) - 1 :
             
             #buildBondingCourseWall(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, brickHeight="Enter", brickWidth="", firstCourse="", brickRow="", bondingCourses="", settleWidth="Enter", settleDepth=""):          
             umc.buildBondingCourseWallv2(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, brickHeight, brickWidth, firstCourse, brickRow, iEntry, jEntry, kEntry, sideBaseWidth)
+            
+            #check for zero volume blocks 
+            zeroVol.zero_vol_rigid_blocks()
+            
+            #create filename
             filename = "bc_r" + str(iEntry) + "-w" + str(jEntry) + "-s" + str(kEntry)             
             
+            #this meshes all blocks ahead of time so that they are exported as simple planes
             success = umc.exportLayers(directory, filename, ".wrl")
             if not (success):
                 break  
             
-
-            #mesh 
+            #mesh for deformable
             umc.meshing(meshValue, directory)
                      
+            #save rhino file
             success = umc.saveAs(directory, filename, ".3dm")
             if not (success):
                 break
-
+            
+            #wrl.wrl23ddat(directory) #crashes it
+            
+            #changes name of gvol to deformable
+            shutil.move('Gvol.3ddat', filename + '_deformable.3ddat')
+            
             #open a new file
             if i < len(iList) + 1:                             
                 success = umc.new()
@@ -102,7 +114,14 @@ while j <= len(jList) - 1 :
         jEntry = jList[j]
         kEntry = kList[k]
         umc.buildNOBC(wallWidth, wallHeight, wallDepth, stoneHeight, stoneWidth, jEntry, kEntry, sideBaseWidth)
+        
+        #check for zero volume blocks 
+        zeroVol.zero_vol_rigid_blocks()
+            
+        #create filename
         filename = "nobc-w" + str(jEntry) + "-s" + str(kEntry) 
+        
+        #this meshes all blocks ahead of time so that they are exported as simple planes
         success = umc.exportLayers(directory, filename, ".wrl")
         if not (success):
             break
@@ -113,7 +132,10 @@ while j <= len(jList) - 1 :
         if not (success):
             break
         
-        
+        #wrl.wrl23ddat(directory) #crashes it
+       
+        #changes name of gvol to deformable
+        shutil.move('Gvol.3ddat', filename + '_deformable.3ddat')
         
         #open a new file
         if k < len(kList) + 1:
