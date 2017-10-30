@@ -156,14 +156,6 @@ while j <= numberBlocks:
     start = start + 12 #increments for each block
     j = j + 1
      
-    
-    
-
-
-        
-            
-
-
 
 outfile2.close()
 
