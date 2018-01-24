@@ -66,15 +66,23 @@ for layer in layers:
     else:
         #grab only that layer
         rs.Command("-_SelLayer " + layer)
-        rs.Command("-_Invert")
-        rs.Command("Hide Enter")
-        rs.Command("-_SelAll")
+        #simple planes
+        rs.Command("-_Mesh DetailedOptions SimplePlane=Yes Enter")
         
         #make cmdstr for export
         path = "\"" + directory + fileName + "_" + layer + filetype + "\""    
         cmdstr = "-_Export " + path
         if filetype == '.wrl':
             cmdstr += " Enter Enter"   
+        
+        #selmesh and export           
+                
+        rs.Command("-_SelNone ")
+        rs.Command("-_SelLayer " + layer)
+        rs.Command("-_Invert ")
+        rs.Command("Hide Enter")
+        rs.Command("-_SelMesh ")   
+            
         cmd = rs.Command(cmdstr)
         if not (cmd):
             success = False   
