@@ -1,6 +1,11 @@
 import rhinoscriptsyntax as rs
 import os
 import shutil
+import sys
+
+file_path = 'C:\\Users\\Rebecca Napolitano\\Documents\\GitHub\\generate3DModels\\'  
+sys.path.append(file_path)
+import find_small_rigid_blocks as zeroVol
 
 directory = 'G:\\My Drive\\Documents\\Research\\mikehess\\palazzo vecchio\\2017_9_7_ElementiModels\\FoundationModels\\ExistingGeometry\\2017_10_30\\'
 fileName = 'this_is_a_test'
@@ -35,6 +40,9 @@ gvol_mode = '_mode=tet '
 outputformat = '_outputformat=3DEC '
 
 gvolOptions = gvol_mode + outputformat
+
+#find zero volume blocks
+zeroVol.zero_vol_rigid_blocks()
 
 
 #get layers
