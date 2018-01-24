@@ -23,6 +23,7 @@ def wrl23ddat(file_path):
         shutil.copyfile(file_path+entry, 'a.wrl')
         #run vtpt
         proc = subprocess.Popen("VTPT.exe", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=0)
+        #pyautogui.press('enter')
         count=0    
         all_outs = ''
         while True:
@@ -41,4 +42,6 @@ def wrl23ddat(file_path):
         os.remove('a.wrl')
         #change the name of a.3dec back to its name + .3dec extension
         shutil.move('a.3dec', file_path+entry.replace('.wrl','.3ddat'))
+        
+        
     

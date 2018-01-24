@@ -42,37 +42,37 @@ def exportLayers(directory, filename, filetype):
     layers = rs.LayerNames() 
     for layer in layers:
         
-        if layer != 'concrete':
+        #if layer != 'concrete':
         
-            # select layer
-            rs.Command("-_SelLayer " + layer)
+        # select layer
+        rs.Command("-_SelLayer " + layer)
+        
+        #mesh so that you can have only simple planes        
+        rs.Command("-_Mesh DetailedOptions SimplePlane=Yes Enter")
+        
+        # make cmdstr, include layer if there are multiple layers
+        if len(layers) > 1:
+            path = "\"" + directory + filename + "_" + layer + filetype + "\""
+        else:
+            path = "\"" + directory + filename + filetype + "\""
             
-            #mesh so that you can have only simple planes        
-            rs.Command("-_Mesh DetailedOptions SimplePlane=Yes Enter")
+        rs.Command("-_SelNone ")
+        rs.Command("-_SelLayer " + layer)
+        rs.Command("-_Invert ")
+        rs.Command("Hide Enter")
+        rs.Command("-_SelMesh ")
+
+        cmdstr = "-_Export " + path
+        if filetype == ".wrl":
+            cmdstr += " Enter Enter"
+        
+        # execute command
+        cmd = rs.Command(cmdstr)
+        if not(cmd):
+            success = False
             
-            # make cmdstr, include layer if there are multiple layers
-            if len(layers) > 1:
-                path = "\"" + directory + filename + "_" + layer + filetype + "\""
-            else:
-                path = "\"" + directory + filename + filetype + "\""
-                
-            rs.Command("-_SelNone ")
-            rs.Command("-_SelLayer " + layer)
-            rs.Command("-_Invert ")
-            rs.Command("Hide Enter")
-            rs.Command("-_SelMesh ")
-    
-            cmdstr = "-_Export " + path
-            if filetype == ".wrl":
-                cmdstr += " Enter Enter"
-            
-            # execute command
-            cmd = rs.Command(cmdstr)
-            if not(cmd):
-                success = False
-                
-            rs.Command("-_SelNone")
-            rs.Command("Show ")
+        rs.Command("-_SelNone")
+        rs.Command("Show ")
         
     return success
 
